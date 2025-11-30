@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { User, Package, Calendar, Heart, MapPin, LogOut, Edit2, Save } from 'lucide-react';
+import { User, Package, Calendar, Heart, MapPin, LogOut, Edit2, Save, X } from 'lucide-react';
 import { ProductCard } from '../components/ProductCard';
 import * as RRD from 'react-router-dom';
 

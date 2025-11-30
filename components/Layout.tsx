@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import * as RRD from 'react-router-dom';
 import { ShoppingBag, Menu, X, User as UserIcon, Search, Leaf, LogOut, Heart, Smartphone, Wallet, CreditCard, Globe, Lock, MapPin, Truck } from 'lucide-react';
@@ -34,20 +33,22 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-herbal-50/80 backdrop-blur-md border-b border-herbal-100/50">
+    <nav className="fixed top-0 left-0 right-0 z-[100] bg-herbal-50/95 backdrop-blur-md border-b border-herbal-100/50 shadow-sm transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-16 md:h-20">
           
-          <Link to="/" className="flex items-center space-x-2 group">
-            <div className="w-10 h-10 bg-herbal-700 rounded-full flex items-center justify-center text-gold-500 shadow-lg group-hover:scale-110 transition-transform">
-              <Leaf size={24} fill="currentColor" />
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-2 group z-[101]">
+            <div className="w-8 h-8 md:w-10 md:h-10 bg-herbal-700 rounded-full flex items-center justify-center text-gold-500 shadow-lg group-hover:scale-110 transition-transform">
+              <Leaf size={20} className="md:w-6 md:h-6" fill="currentColor" />
             </div>
             <div>
-              <h1 className="text-2xl font-serif font-bold text-herbal-900 tracking-tight">ArogyaSagar</h1>
-              <p className="text-[10px] text-gold-600 tracking-widest uppercase font-semibold">Premium Ayurveda</p>
+              <h1 className="text-xl md:text-2xl font-serif font-bold text-herbal-900 tracking-tight leading-none">ArogyaSagar</h1>
+              <p className="text-[8px] md:text-[10px] text-gold-600 tracking-widest uppercase font-semibold">Premium Ayurveda</p>
             </div>
           </Link>
 
+          {/* Desktop Nav */}
           <div className="hidden md:flex space-x-8 items-center">
             {navLinks.map((link: any) => (
               <Link 
@@ -60,22 +61,24 @@ export const Navbar = () => {
             ))}
           </div>
 
-          <div className="flex items-center space-x-2 sm:space-x-4">
+          {/* Actions */}
+          <div className="flex items-center space-x-1 sm:space-x-4">
             <button className="text-gray-600 hover:text-herbal-700 transition-colors p-2 hidden sm:block">
               <Search size={20} />
             </button>
             
-            <Link to="/wishlist" className="relative text-gray-600 hover:text-red-500 transition-colors p-2">
+            <Link to="/wishlist" className="relative text-gray-600 hover:text-red-500 transition-colors p-2 hidden sm:block">
                <Heart size={20} className={wishlist.length > 0 ? "fill-red-500 text-red-500" : ""} />
             </Link>
 
+            {/* User Profile (Desktop) */}
             {user ? (
               <div className="relative group hidden sm:block">
                 <button className="flex items-center space-x-2 text-gray-700 hover:text-herbal-800 transition-colors">
                   <div className="w-8 h-8 bg-herbal-100 rounded-full flex items-center justify-center text-herbal-700 border border-herbal-200">
                     <UserIcon size={16} />
                   </div>
-                  <span className="text-sm font-medium hidden lg:inline">{user.name}</span>
+                  <span className="text-sm font-medium hidden lg:inline max-w-[100px] truncate">{user.name}</span>
                 </button>
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform origin-top-right z-50">
                    <div className="py-2">
@@ -94,6 +97,7 @@ export const Navbar = () => {
               </Link>
             )}
 
+            {/* Cart Button */}
             <button 
               onClick={() => setIsCartOpen(true)}
               className="relative text-gray-600 hover:text-herbal-700 transition-colors p-2"
@@ -106,8 +110,9 @@ export const Navbar = () => {
               )}
             </button>
             
+            {/* Mobile Menu Toggle */}
             <button 
-              className="md:hidden text-gray-800 p-2"
+              className="md:hidden text-gray-800 p-2 z-[101]"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -116,39 +121,55 @@ export const Navbar = () => {
         </div>
       </div>
 
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: '100vh' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-b border-herbal-100 overflow-hidden shadow-lg"
+            className="md:hidden bg-white fixed inset-0 top-16 z-[90] overflow-y-auto"
           >
-            <div className="px-4 pt-2 pb-6 space-y-2">
+            <div className="px-4 py-6 space-y-4">
               {navLinks.map((link: any) => (
                 <Link 
                   key={link.name} 
                   to={link.path}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="block px-4 py-3 text-base font-medium text-gray-700 hover:text-herbal-700 hover:bg-herbal-50 rounded-lg active:bg-herbal-100"
+                  className="block px-4 py-4 text-lg font-medium text-gray-800 hover:text-herbal-700 hover:bg-herbal-50 rounded-xl transition-colors border-b border-gray-50 last:border-0"
                 >
                   {link.name}
                 </Link>
               ))}
-              <div className="pt-4 border-t border-gray-100 mt-2">
+              
+              <div className="pt-6 mt-4 border-t border-gray-100">
                  {user ? (
-                   <>
-                    <button onClick={() => { handleProfileClick(); setIsMobileMenuOpen(false); }} className="block w-full text-left px-4 py-3 text-herbal-700 font-bold bg-herbal-50 rounded-lg mb-2">
-                        {user.role === 'admin' ? 'Admin Dashboard' : 'My Profile'}
+                   <div className="space-y-3">
+                    <div className="px-4 flex items-center gap-3 mb-4">
+                        <div className="w-10 h-10 bg-herbal-100 rounded-full flex items-center justify-center text-herbal-700 text-lg font-bold">
+                            {user.name.charAt(0)}
+                        </div>
+                        <div>
+                            <p className="font-bold text-gray-900">{user.name}</p>
+                            <p className="text-xs text-gray-500">{user.email}</p>
+                        </div>
+                    </div>
+                    <button onClick={() => { handleProfileClick(); setIsMobileMenuOpen(false); }} className="w-full text-left px-4 py-3 bg-herbal-50 text-herbal-800 rounded-xl font-bold flex items-center gap-2">
+                        <UserIcon size={18} /> {user.role === 'admin' ? 'Admin Dashboard' : 'My Profile'}
                     </button>
-                    <button onClick={() => { logout(); setIsMobileMenuOpen(false); navigate('/'); }} className="block w-full text-left px-4 py-3 text-red-600 font-medium">
-                        Logout ({user.name})
+                    <Link to="/wishlist" onClick={() => setIsMobileMenuOpen(false)} className="block w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl flex items-center gap-2">
+                        <Heart size={18} /> My Wishlist
+                    </Link>
+                    <button onClick={() => { logout(); setIsMobileMenuOpen(false); navigate('/'); }} className="w-full text-left px-4 py-3 text-red-600 rounded-xl font-medium flex items-center gap-2">
+                        <LogOut size={18} /> Logout
                     </button>
-                   </>
+                   </div>
                  ) : (
-                   <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-3 text-herbal-700 font-bold bg-herbal-50 rounded-lg text-center">
-                     Login / Signup
-                   </Link>
+                   <div className="px-4">
+                       <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="block w-full py-4 text-center bg-herbal-700 text-white font-bold rounded-xl shadow-lg active:scale-95 transition-transform">
+                         Login / Sign Up
+                       </Link>
+                   </div>
                  )}
               </div>
             </div>
@@ -291,14 +312,14 @@ export const CartSidebar = () => {
             animate={{ opacity: 0.5 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsCartOpen(false)}
-            className="fixed inset-0 bg-black z-[60]"
+            className="fixed inset-0 bg-black z-[110]"
           />
           <motion.div 
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed right-0 top-0 h-full w-full sm:max-w-md bg-white z-[70] shadow-2xl flex flex-col"
+            className="fixed right-0 top-0 h-full w-full sm:max-w-md bg-white z-[120] shadow-2xl flex flex-col"
           >
             <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-herbal-50">
               <h2 className="text-xl font-serif font-bold text-herbal-900">Your Basket</h2>
@@ -358,7 +379,7 @@ export const CartSidebar = () => {
     {/* Checkout Flow Modal */}
     <AnimatePresence>
         {showCheckoutModal && (
-            <div className="fixed inset-0 z-[80] flex items-center justify-center p-4">
+            <div className="fixed inset-0 z-[130] flex items-center justify-center p-4">
                 <motion.div 
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 0.6 }}

@@ -14,16 +14,16 @@ const categories = [
 ];
 
 export const Shop = () => {
-  const { products, getRecommendations, trackProductView } = useApp();
+  const { products, getRecommendations, trackProductView, viewHistory } = useApp();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [recommendations, setRecommendations] = useState<any[]>([]);
 
   useEffect(() => {
-    // Load recommendations on mount
+    // Load recommendations on mount and when viewHistory/products change
     setRecommendations(getRecommendations());
-  }, [products]);
+  }, [products, viewHistory]);
 
   const filteredProducts = products.filter(p => {
     const matchesCategory = selectedCategory === 'All' || p.category === selectedCategory;
@@ -124,7 +124,9 @@ export const Shop = () => {
           <div className="hidden md:block w-64 flex-shrink-0">
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 sticky top-24">
               <div className="flex items-center gap-2 mb-4 text-herbal-800 font-bold"><Filter size={20} /> Categories</div>
-              <div className="space-y-1 h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+              
+              {/* Dynamic Height Calculation for Sidebar Scroll */}
+              <div className="space-y-1 max-h-[calc(100vh-250px)] overflow-y-auto pr-2 custom-scrollbar">
                 {categories.map(cat => (
                   <button key={cat} onClick={() => setSelectedCategory(cat)} className={`block w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all ${selectedCategory === cat ? 'bg-herbal-100 text-herbal-800 font-bold translate-x-1' : 'text-gray-600 hover:bg-gray-50'}`}>
                     {cat}

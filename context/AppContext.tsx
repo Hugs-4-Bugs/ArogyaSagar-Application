@@ -54,6 +54,7 @@ interface AppContextType {
   isInWishlist: (productId: string) => boolean;
 
   // Recommendations
+  viewHistory: Record<string, number>;
   trackProductView: (product: Product) => void;
   getRecommendations: () => Product[];
 }
@@ -248,7 +249,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const getRecommendations = (): Product[] => {
     // 1. Find top categories from history
     const sortedCategories = Object.entries(viewHistory)
-      .sort(([, a], [, b]) => b - a)
+      .sort(([, a], [, b]) => (b as number) - (a as number))
       .map(([cat]) => cat);
 
     if (sortedCategories.length === 0) {
@@ -333,7 +334,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       messages, addMessage, isChatTyping,
       getProductReviews, addReview,
       wishlist, toggleWishlist, isInWishlist,
-      trackProductView, getRecommendations
+      viewHistory, trackProductView, getRecommendations
     }}>
       {children}
     </AppContext.Provider>

@@ -2,13 +2,14 @@
 import { Product, Doctor, Therapy, WellnessTip, Recipe } from './types';
 
 // --- PRODUCT GENERATION ENGINE ---
-// This ensures we have 250+ unique items with images without a massive static file.
+// Expanded image sets for better variety and visual accuracy
 
 const CATEGORY_DATA: Record<string, { images: string[], bases: string[], adjectives: string[], priceRange: [number, number] }> = {
   'Immunity & Energy': {
     images: [
-      'https://images.unsplash.com/photo-1611079830811-865dd442616a?q=80&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1512069772995-ec65ed456eb3?q=80&w=600&auto=format&fit=crop'
+      'https://images.unsplash.com/photo-1512069772995-ec65ed456eb3?q=80&w=600&auto=format&fit=crop', // Herbs in jar
+      'https://images.unsplash.com/photo-1546843825-ac63b5e31fa9?q=80&w=600&auto=format&fit=crop', // Herbal powder
+      'https://images.unsplash.com/photo-1629196911514-cfd8d628b26e?q=80&w=600&auto=format&fit=crop'  // Pills/Capsules
     ],
     bases: ['Ashwagandha', 'Shilajit', 'Chyawanprash', 'Giloy', 'Amla', 'Moringa', 'Spirulina', 'Ginseng', 'Turmeric Curcumin', 'Immunity Drops'],
     adjectives: ['Gold', 'Premium', 'Organic', 'Pure', 'Vitality', 'Power', 'Daily', 'Forte', 'Max', 'Ultra'],
@@ -16,8 +17,9 @@ const CATEGORY_DATA: Record<string, { images: string[], bases: string[], adjecti
   },
   'General Wellness': {
     images: [
-      'https://images.unsplash.com/photo-1626438865324-4f93318991b9?q=80&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop'
+      'https://images.unsplash.com/photo-1626438865324-4f93318991b9?q=80&w=600&auto=format&fit=crop', // Ayurveda bottle
+      'https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop', // Green supplement
+      'https://images.unsplash.com/photo-1615486511269-a7b5d513fa0e?q=80&w=600&auto=format&fit=crop'  // Natural medicine
     ],
     bases: ['Triphala', 'Neem', 'Aloe Vera', 'Wheatgrass', 'Gokshura', 'Manjistha', 'Brahmi', 'Shatavari', 'Punarnava', 'Liver Detox'],
     adjectives: ['Balance', 'Digest', 'Cleanse', 'Whole', 'Natural', 'Essentials', 'Care', 'Life', 'Veda', 'Roots'],
@@ -25,9 +27,10 @@ const CATEGORY_DATA: Record<string, { images: string[], bases: string[], adjecti
   },
   'Herbal Teas': {
     images: [
-      'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?q=80&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1576092768241-dec231879fc3?q=80&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1627435601361-ec25f5b1d0e5?q=80&w=600&auto=format&fit=crop'
+      'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?q=80&w=600&auto=format&fit=crop', // Tea cup
+      'https://images.unsplash.com/photo-1576092768241-dec231879fc3?q=80&w=600&auto=format&fit=crop', // Tea leaves
+      'https://images.unsplash.com/photo-1627435601361-ec25f5b1d0e5?q=80&w=600&auto=format&fit=crop', // Tea pouring
+      'https://images.unsplash.com/photo-1563911302283-d2bc129e7c1f?q=80&w=600&auto=format&fit=crop'  // Green tea
     ],
     bases: ['Green Tea', 'Tulsi Tea', 'Chamomile Blend', 'Hibiscus Infusion', 'Ginger Cardamom', 'Masala Chai', 'Peppermint Detox', 'Jasmine Pearls', 'Lemon Grass', 'Sleep Tea'],
     adjectives: ['Himalayan', 'Calming', 'Energizing', 'Classic', 'Royal', 'Soothing', 'Detox', 'Slimming', 'Fresh', 'Aromatic'],
@@ -35,8 +38,9 @@ const CATEGORY_DATA: Record<string, { images: string[], bases: string[], adjecti
   },
   'Organic Honey': {
     images: [
-      'https://images.unsplash.com/photo-1587049352846-4a222e784d38?q=80&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?q=80&w=600&auto=format&fit=crop'
+      'https://images.unsplash.com/photo-1587049352846-4a222e784d38?q=80&w=600&auto=format&fit=crop', // Honey jar
+      'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?q=80&w=600&auto=format&fit=crop', // Honeycomb
+      'https://images.unsplash.com/photo-1612475498348-0702087933a3?q=80&w=600&auto=format&fit=crop'  // Honey stick
     ],
     bases: ['Wild Honey', 'Tulsi Honey', 'Multiflora Honey', 'Acacia Honey', 'Forest Raw Honey', 'Ginger Honey', 'Saffron Honey', 'Mustard Honey', 'Eucalyptus Honey', 'Berry Honey'],
     adjectives: ['Raw', 'Unfiltered', 'Pure', 'Golden', 'Sweet', 'Mountain', 'Wild', 'Organic', 'Nectar', 'Bee'],
@@ -44,8 +48,9 @@ const CATEGORY_DATA: Record<string, { images: string[], bases: string[], adjecti
   },
   'Essential Oils': {
     images: [
-      'https://images.unsplash.com/photo-1608248597279-f99d160bfbc8?q=80&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=600&auto=format&fit=crop'
+      'https://images.unsplash.com/photo-1608248597279-f99d160bfbc8?q=80&w=600&auto=format&fit=crop', // Oil bottles
+      'https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=600&auto=format&fit=crop', // Dropper
+      'https://images.unsplash.com/photo-1611079830811-865dd442616a?q=80&w=600&auto=format&fit=crop'  // Spa oil
     ],
     bases: ['Lavender Oil', 'Eucalyptus Oil', 'Peppermint Oil', 'Tea Tree Oil', 'Rosemary Oil', 'Lemongrass Oil', 'Sandalwood Oil', 'Frankincense', 'Jasmine Oil', 'Ylang Ylang'],
     adjectives: ['Therapeutic', 'Aromatic', 'Distilled', 'Essence', 'Calm', 'Pure', 'Extract', 'Elixir', 'Mood', 'Sense'],
@@ -53,8 +58,9 @@ const CATEGORY_DATA: Record<string, { images: string[], bases: string[], adjecti
   },
   'Spices & Superfoods': {
     images: [
-      'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1532336414038-cf00d4797c59?q=80&w=600&auto=format&fit=crop'
+      'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=600&auto=format&fit=crop', // Turmeric powder
+      'https://images.unsplash.com/photo-1532336414038-cf00d4797c59?q=80&w=600&auto=format&fit=crop', // Spices mix
+      'https://images.unsplash.com/photo-1615485925694-a031e897137b?q=80&w=600&auto=format&fit=crop'  // Cinnamon
     ],
     bases: ['Turmeric Powder', 'Black Pepper', 'Cinnamon Sticks', 'Cardamom', 'Clove Buds', 'Saffron Strands', 'Chia Seeds', 'Flax Seeds', 'Quinoa', 'Moringa Powder'],
     adjectives: ['Organic', 'Whole', 'Ground', 'Premium', 'Export Quality', 'Farm Fresh', 'Authentic', 'Spicy', 'Rich', 'Flavor'],
@@ -62,27 +68,37 @@ const CATEGORY_DATA: Record<string, { images: string[], bases: string[], adjecti
   },
   'Hair & Skin Care': {
     images: [
-      'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?q=80&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1556228578-8c89e6adf883?q=80&w=600&auto=format&fit=crop'
+      'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?q=80&w=600&auto=format&fit=crop', // Cosmetic bottle
+      'https://images.unsplash.com/photo-1556228578-8c89e6adf883?q=80&w=600&auto=format&fit=crop', // Cream
+      'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?q=80&w=600&auto=format&fit=crop'  // Soap
     ],
     bases: ['Face Wash', 'Hair Oil', 'Shampoo', 'Conditioner', 'Face Serum', 'Body Lotion', 'Face Pack', 'Hair Mask', 'Massage Oil', 'Soap'],
     adjectives: ['Glow', 'Radiance', 'Silk', 'Strong', 'Nourish', 'Hydrate', 'Clear', 'Soft', 'Revive', 'Shine'],
     priceRange: [250, 1500]
   },
   'Pain Relief': {
-    images: ['https://images.unsplash.com/photo-1608248597279-f99d160bfbc8?q=80&w=600&auto=format&fit=crop'],
+    images: [
+      'https://images.unsplash.com/photo-1632517594943-40e9499dfd30?q=80&w=600&auto=format&fit=crop', // Cream tube
+      'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=600&auto=format&fit=crop'  // Medicine
+    ],
     bases: ['Relief Oil', 'Balm', 'Spray', 'Capsules', 'Ointment', 'Gel', 'Patch', 'Roll-on', 'Tablet', 'Liniment'],
     adjectives: ['Fast Action', 'Deep', 'Instant', 'Muscle', 'Joint', 'Orthopedic', 'Strong', 'Advanced', 'Natural', 'Effective'],
     priceRange: [150, 800]
   },
   'Chronic Diseases': {
-    images: ['https://images.unsplash.com/photo-1550572017-ed1086058d84?q=80&w=600&auto=format&fit=crop'],
+    images: [
+      'https://images.unsplash.com/photo-1550572017-ed1086058d84?q=80&w=600&auto=format&fit=crop', // Pills
+      'https://images.unsplash.com/photo-1585435557343-3b092031a831?q=80&w=600&auto=format&fit=crop'  // Medicine bottle
+    ],
     bases: ['Diabetes Care', 'BP Control', 'Cholesterol Aid', 'Thyroid Balance', 'Heart Care', 'Liver Support', 'Kidney Detox', 'Lung Care', 'Arthritis Aid', 'Sugar Balance'],
     adjectives: ['Control', 'Regulator', 'Support', 'Care', 'Health', 'Management', 'System', 'Guard', 'Shield', 'Defender'],
     priceRange: [400, 2000]
   },
   'Mental Wellness': {
-    images: ['https://images.unsplash.com/photo-1544367563-12123d8965cd?q=80&w=600&auto=format&fit=crop'],
+    images: [
+      'https://images.unsplash.com/photo-1544367563-12123d8965cd?q=80&w=600&auto=format&fit=crop', // Calm tea
+      'https://images.unsplash.com/photo-1605371924599-2d0365da1ae0?q=80&w=600&auto=format&fit=crop'  // Meditation items
+    ],
     bases: ['Brain Tonic', 'Focus Capsules', 'Sleep Aid', 'Stress Relief', 'Mood Enhancer', 'Memory Booster', 'Calm Drops', 'Relax Tea', 'Mind Power', 'Peace Tablets'],
     adjectives: ['Zen', 'Focus', 'Calm', 'Rest', 'Mind', 'Cognitive', 'Serenity', 'Bliss', 'Smart', 'Deep'],
     priceRange: [350, 1200]
@@ -94,8 +110,8 @@ const generateProducts = (): Product[] => {
   let idCounter = 1;
 
   Object.entries(CATEGORY_DATA).forEach(([category, data]) => {
-    // Generate ~25 items per category
-    for (let i = 0; i < 25; i++) {
+    // Generate ~20 items per category for diverse catalog
+    for (let i = 0; i < 20; i++) {
       const base = data.bases[Math.floor(Math.random() * data.bases.length)];
       const adj = data.adjectives[Math.floor(Math.random() * data.adjectives.length)];
       const name = `${adj} ${base}`;
@@ -107,15 +123,15 @@ const generateProducts = (): Product[] => {
       products.push({
         id: idCounter.toString(),
         name,
-        description: `Premium ${category.toLowerCase()} product. Authentic Ayurvedic formulation for holistic health.`,
+        description: `Premium ${category.toLowerCase()} product. Authentic Ayurvedic formulation for holistic health using ${base}.`,
         price,
         category,
         image,
         rating,
         reviews,
         reviewsList: [],
-        benefits: ['Natural Ingredients', 'Chemical Free', 'Doctor Verified'],
-        ingredients: ['Herb A', 'Herb B', 'Natural Extracts'],
+        benefits: ['Natural Ingredients', 'Chemical Free', 'Doctor Verified', 'Holistic Cure'],
+        ingredients: [base, 'Herbal Extract', 'Natural Preservatives'],
         inStock: true
       });
       idCounter++;
